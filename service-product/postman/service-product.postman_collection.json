@@ -1,0 +1,92 @@
+{
+  "info": {
+    "name": "service-product (CoreSales)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8081" },
+    { "key": "productId", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "1. Listar productos",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": { "raw": "{{baseUrl}}/api/productos", "host": ["{{baseUrl}}"], "path": ["api","productos"] }
+      }
+    },
+    {
+      "name": "2. Obtener producto por ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": { "raw": "{{baseUrl}}/api/productos/{{productId}}", "host": ["{{baseUrl}}"], "path": ["api","productos","{{productId}}"] }
+      }
+    },
+    {
+      "name": "3. Obtener producto inexistente (404)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": { "raw": "{{baseUrl}}/api/productos/9999", "host": ["{{baseUrl}}"], "path": ["api","productos","9999"] }
+      }
+    },
+    {
+      "name": "4. Crear producto",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"codigo\": \"PROD-300\",\n  \"nombre\": \"Cargador USB-C\",\n  \"descripcion\": \"Cargador rapido 65W\",\n  \"categoriaProductoId\": 3,\n  \"marcaId\": 3,\n  \"precioCompra\": 25.00,\n  \"precioVenta\": 49.90,\n  \"stockMinimo\": 5,\n  \"stockInicial\": 10,\n  \"activo\": true\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/api/productos", "host": ["{{baseUrl}}"], "path": ["api","productos"] }
+      }
+    },
+    {
+      "name": "5. Crear producto con codigo duplicado (409)",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"codigo\": \"PROD-300\",\n  \"nombre\": \"Otro producto\",\n  \"categoriaProductoId\": 3,\n  \"precioCompra\": 1.00,\n  \"precioVenta\": 2.00\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/api/productos", "host": ["{{baseUrl}}"], "path": ["api","productos"] }
+      }
+    },
+    {
+      "name": "6. Actualizar producto",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"codigo\": \"PROD-300\",\n  \"nombre\": \"Cargador USB-C 65W\",\n  \"descripcion\": \"Cargador rapido con cable incluido\",\n  \"categoriaProductoId\": 3,\n  \"marcaId\": 3,\n  \"precioCompra\": 27.00,\n  \"precioVenta\": 54.90,\n  \"stockMinimo\": 5,\n  \"activo\": true\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/api/productos/{{productId}}", "host": ["{{baseUrl}}"], "path": ["api","productos","{{productId}}"] }
+      }
+    },
+    {
+      "name": "7. Actualizar producto inexistente (404)",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"codigo\": \"X\",\n  \"nombre\": \"X\",\n  \"categoriaProductoId\": 1,\n  \"precioCompra\": 1.00,\n  \"precioVenta\": 1.00\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/api/productos/9999", "host": ["{{baseUrl}}"], "path": ["api","productos","9999"] }
+      }
+    },
+    {
+      "name": "8. Eliminar producto (baja logica)",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": { "raw": "{{baseUrl}}/api/productos/{{productId}}", "host": ["{{baseUrl}}"], "path": ["api","productos","{{productId}}"] }
+      }
+    }
+  ]
+}
